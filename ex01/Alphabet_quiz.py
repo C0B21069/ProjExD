@@ -1,9 +1,9 @@
 import pstats
 import random 
 import datetime
-st=datetime.datetime.now()
 
 def kaito(y):
+    st=datetime.datetime.now()
     ans=[]
     yans=int(input("欠損文字はいくつあるでしょか？:"))
     if yans == len(y):
