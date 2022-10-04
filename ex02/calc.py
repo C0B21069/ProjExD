@@ -39,15 +39,18 @@ for i in range(9,-1,-1):
         r += 1
         c = 0
 
+
 #=ボタンの表示
 btn = tk.Button(root,text=f"=",font=(" ",30),bg="LightSteelBlue1",width=8,height=2)
 btn.bind("<1>",btn_kotae)
 btn.grid(row=r,column=c,columnspan=2)
 
+
 #オールクリアボタンの表示
 btn = tk.Button(root,text=f"AC",font=(" ",30),fg="white",bg="red",width=4,height=2)
 btn.bind("<1>",clear)
 btn.grid(row=1,column=0)
+
 
 #演算子の表示
 enzansi = ["+","-","*","/"]
