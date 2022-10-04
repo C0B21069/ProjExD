@@ -62,6 +62,4 @@ for i in enzansi:
     a += 1
 
 
-
-
 root.mainloop()
