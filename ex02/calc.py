@@ -9,8 +9,16 @@ root.geometry("300x500")
 
 def btn_clc(event):
     btn = event.widget
-    txt = int(btn["text"])
-    tkm.showinfo(txt,f"{txt}のボタンがクリックされました")
+    txt = btn["text"]
+   # tkm.showinfo(txt,f"{txt}のボタンがクリックされました")
+    entry.insert(tk.END,txt)
+
+
+def btn_kotae(event):
+    kotae = entry.get()
+    res = eval(kotae)
+    entry.delete(0,tk.END)
+    entry.insert(tk.END,res)
 
 
 entry = tk.Entry(root, width=10, font=(", 40"), justify="right") 
@@ -28,6 +36,14 @@ for i in range(9,-1,-1):
         c = 0
 
 
+btn = tk.Button(root,text=f"+",font=(" ",30),width=4,height=2)
+btn.bind("<1>",btn_clc)
+btn.grid(row=r,column=c)
+
+
+btn = tk.Button(root,text=f"=",font=(" ",30),width=4,height=2)
+btn.bind("<1>",btn_kotae)
+btn.grid(row=r,column=c+1)
 
 
 root.mainloop()
