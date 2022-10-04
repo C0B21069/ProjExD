@@ -31,7 +31,7 @@ entry.grid(row=0, column=0, columnspan=5)
 
 r,c = 2,0#数字のボタンの表示
 for i in range(9,-1,-1):
-    btn = tk.Button(root,text=f"{i}",font=(" ",30),fg="white",bg="lightgray",width=4,height=2)
+    btn = tk.Button(root,text=f"{i}",font=(" ",30),fg="black",bg="lightgray",width=4,height=2)
     btn .bind("<1>",btn_clc)
     btn.grid(row=r,column=c)
     c += 1
