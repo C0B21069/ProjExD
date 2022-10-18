@@ -3,19 +3,16 @@ import maze_maker as mm
 from PIL import Image, ImageTk
 import tkinter.messagebox as tkm
 
-
 #練習5
 def key_down(event):
     global key
     key = event.keysym
     print(key)
 
-
 #練習6
 def key_up(event):
     global key
     key = " "
-
 
 #練習7,11,12
 def main_proc():
@@ -45,7 +42,6 @@ def main_proc():
         tkm.showinfo("ゴール","おめでとう！")
     else:
          root.after(100,main_proc)
-
 
 if __name__ == "__main__":
     root = tk.Tk()
