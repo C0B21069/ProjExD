@@ -1,4 +1,5 @@
 import tkinter as tk
+import maze_maker as mm
 
 #練習5
 def key_down(event):
@@ -55,5 +56,12 @@ if __name__ == "__main__":
     #練習7
     main_proc()
 
+    #練習9
+    maze_lst = mm.make_maze(15,9)
+    # print(maze_lst) #1:壁/0:床
+
+    #練習10
+    mm.show_maze(canv,maze_lst)
+    
     root.mainloop()
 
