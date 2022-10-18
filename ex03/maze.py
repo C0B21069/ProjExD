@@ -42,7 +42,7 @@ def main_proc():
             mx -= 1
     canv.coords("tori", cx, cy)
     if mx ==13 and my == 7:
-        tkm.showinfo("ゴール","あめでとう！")
+        tkm.showinfo("ゴール","おめでとう！")
     else:
          root.after(100,main_proc)
 
