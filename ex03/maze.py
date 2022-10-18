@@ -1,5 +1,8 @@
 import tkinter as tk
 import maze_maker as mm
+from PIL import Image, ImageTk
+import tkinter.messagebox as tkm
+
 
 #練習5
 def key_down(event):
@@ -38,7 +41,10 @@ def main_proc():
         if key == "Right":
             mx -= 1
     canv.coords("tori", cx, cy)
-    root.after(100,main_proc)
+    if mx ==13 and my == 7:
+        tkm.showinfo("ゴール","あめでとう！")
+    else:
+         root.after(100,main_proc)
 
 
 if __name__ == "__main__":
@@ -63,6 +69,16 @@ if __name__ == "__main__":
     cx, cy = 300, 400
     canv.create_image(cx, cy, image=tori, tag="tori") 
 
+    #追加機能
+    maguma_lst=[[0 for i in range(15)] for y in range(9)]
+    for i,y in enumerate(maze_lst):
+        for j,x in enumerate(y):
+            if x == 1 :
+                img = Image.open('maguma.png')
+                img = img.resize((100, 100))
+                maguma_lst[i][j] = ImageTk.PhotoImage(img)
+                canv.create_image(j*100+50, i*100+50, image= maguma_lst[i][j], tag="tile"+str(i)+str(j))
+    
     #練習4　現在押されているキー
     key =" "
 
