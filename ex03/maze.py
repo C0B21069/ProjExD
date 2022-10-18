@@ -1,5 +1,12 @@
 import tkinter as tk
 
+#練習5
+def key_down(event):
+    global key
+    key = event.keysym
+    print(key)
+
+
 if __name__ == "__main__":
     root = tk.Tk()
     #練習1
@@ -16,5 +23,9 @@ if __name__ == "__main__":
 
     #練習4　現在押されているキー
     key =" "
+
+    #練習5
+    root.bind("<KeyPress>",key_down)
+
     root.mainloop()
 
