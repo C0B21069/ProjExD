@@ -12,7 +12,7 @@ def check_bound(obj_rct, scr_rct):
     scr_rct:スクリーンrct
     領域内:+1/領域外:-1
     """
-    
+
     yoko, tate = +1, +1
     if obj_rct.left < scr_rct.left or scr_rct.right < obj_rct.right:
         yoko = -1
@@ -37,6 +37,7 @@ def main():
 
     root = tk.Tk()
     root.withdraw()
+    
     #練習1
     pg.display.set_caption("逃げろ！こうかとん")
     scrn_sfc = pg.display.set_mode((1600, 900))
