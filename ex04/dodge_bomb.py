@@ -1,6 +1,9 @@
 import pygame as pg
 import sys
 from random import randint
+import time
+import tkinter as tk
+import tkinter.messagebox as tkm
 
 #練習7
 def check_bound(obj_rct, scr_rct):
@@ -17,6 +20,21 @@ def check_bound(obj_rct, scr_rct):
     return yoko, tate
 
 def main():
+    start_time = time.time()
+    # elapsed_time = int(time.time() - start_time)
+    # elapsed_hour = elapsed_time // 3600
+    # elapsed_minute = (elapsed_time % 3600) // 60
+    # elapsed_second = (elapsed_time % 3600 % 60)
+    # root = tk.Tk()
+    # root.title("経過時間")
+    # root.geometry("100x100")
+    # label = tk.Label(root, text = str(elapsed_hour).zfill(2) + ":" + str(elapsed_minute).zfill(2) +
+    #                               ":" + str(elapsed_second).zfill(2),
+    #                               font = ("Ricty Diminished", 20)
+    #                  )               
+
+    root = tk.Tk()
+    root.withdraw()
     #練習1
     pg.display.set_caption("逃げろ！こうかとん")
     scrn_sfc = pg.display.set_mode((1600, 900))
@@ -38,8 +56,17 @@ def main():
     bomb_rct.centerx = randint(0, scrn_rct.width)
     bomb_rct.centery = randint(0, scrn_rct.height)
 
+    #爆弾2個目
+    bomb_sfc2 = pg.Surface((20,20))
+    bomb_sfc2.set_colorkey((0, 0, 0))
+    pg.draw.circle(bomb_sfc2, (0, 255, 40), (10, 10), 10)
+    bomb_rct2 = bomb_sfc2.get_rect()
+    bomb_rct2.centerx = randint(0, 1500)
+    bomb_rct2.centery = randint(0, 800)
+
     #練習6
     vx, vy = +1, +1
+    vx2, vy2 = +1, +1
 
     clock = pg.time.Clock() 
     #練習2
@@ -76,18 +103,35 @@ def main():
 
         #練習7
         yoko, tate = check_bound(bomb_rct, scrn_rct)
+        if yoko == -1 and tate == -1:
+            pass
         vx *= yoko
         vy *= tate
+
+        yoko2, tate2 = check_bound(bomb_rct2, scrn_rct)
+        vx2 *= yoko2
+        vy2 *= tate2
+
         bomb_rct.move_ip(vx, vy) #練習6 
         scrn_sfc.blit(bomb_sfc, bomb_rct) #練習5
 
+        #爆弾2個目
+        bomb_rct2.move_ip(vx2, vy2)
+        scrn_sfc.blit(bomb_sfc2, bomb_rct2)
+
         #練習8
         if tori_rct.colliderect(bomb_rct): #こうかとんrctが爆弾rctと重なったら
+            end = time.time()
+            tkm.showinfo("GAME OVER",f"{end - start_time:.3g}秒でGAVE OVER")
+            return
+        
+        if tori_rct.colliderect(bomb_rct2): #こうかとんrctが爆弾rctと重なったら
+            end = time.time()
+            tkm.showinfo("GAME OVER",f"{end - start_time:.3g}秒でGAME OVER")
             return
 
         pg.display.update()
         clock.tick(1000)
-
 if __name__ == "__main__":
     pg.init() #初期化
     main() 
