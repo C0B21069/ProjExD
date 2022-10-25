@@ -17,11 +17,15 @@ def main():
     tori_rct.center = 900, 400
 
     #練習5
-    bomb_sfc = pg.Surface((20,20))
+    bomb_sfc = pg.Surface((20,20)) #空のSurface
+    bomb_sfc.set_colorkey((0, 0, 0)) #爆弾の四隅の黒い部分を透過させる
     pg.draw.circle(bomb_sfc, (255, 10, 0), (10, 10), 10 ) #円を描く
     bomb_rct = bomb_sfc.get_rect()
     bomb_rct.centerx = randint(0, scrn_rct.width)
     bomb_rct.centery = randint(0, scrn_rct.height)
+
+    #練習6
+    vx, vy = +1, +1
 
     clock = pg.time.Clock() 
     #練習2
@@ -43,8 +47,10 @@ def main():
         if key_states[pg.K_RIGHT]:
             tori_rct.centerx += 1
         
-        scrn_sfc.blit(tori_sfc, tori_rct)
+        scrn_sfc.blit(tori_sfc, tori_rct) #練習3
 
+        bomb_rct.move_ip(vx, vy) #練習6 
+        scrn_sfc.blit(bomb_sfc, bomb_rct) #練習5
 
         pg.display.update()
         clock.tick(1000)
