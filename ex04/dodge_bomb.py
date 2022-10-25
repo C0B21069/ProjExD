@@ -21,6 +21,7 @@ def check_bound(obj_rct, scr_rct):
 
 def main():
     start_time = time.time()
+    #時間経過の表示
     # elapsed_time = int(time.time() - start_time)
     # elapsed_hour = elapsed_time // 3600
     # elapsed_minute = (elapsed_time % 3600) // 60
@@ -69,6 +70,7 @@ def main():
     vx2, vy2 = +1, +1
 
     clock = pg.time.Clock() 
+    
     #練習2
     while True:
         scrn_sfc.blit(bg_sfc, bg_rct) 
@@ -130,12 +132,14 @@ def main():
             tkm.showinfo("GAME OVER",f"{end - start_time:.3g}秒でGAME OVER")
             return
         
+        #成功した時の表示
         if pg.time.get_ticks() >= 30000:
             tkm.showinfo("GAME CLEAR","GAME CLEAR おめでとう！")
             return
 
         pg.display.update()
         clock.tick(1000)
+
 if __name__ == "__main__":
     pg.init() #初期化
     main() 
