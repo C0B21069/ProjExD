@@ -70,7 +70,7 @@ def main():
     vx2, vy2 = +1, +1
 
     clock = pg.time.Clock() 
-    
+
     #練習2
     while True:
         scrn_sfc.blit(bg_sfc, bg_rct) 
@@ -105,12 +105,26 @@ def main():
 
         #練習7
         yoko, tate = check_bound(bomb_rct, scrn_rct)
-        if yoko == -1 and tate == -1:
-            pass
+        if vx < 0:  #爆弾の加速
+            vx -= 0.0005
+        elif vx > 0:
+            vx += 0.0005
+        if vy < 0:
+            vy -= 0.0005
+        elif vy > 0:
+            vy += 0.0005
         vx *= yoko
         vy *= tate
 
         yoko2, tate2 = check_bound(bomb_rct2, scrn_rct)
+        if vx2 < 0: #爆弾の加速
+            vx2 -= 0.0005
+        elif vx2 > 0:
+            vx2 += 0.0005
+        if vy2 < 0:
+            vy2 -= 0.0005
+        elif vy2 > 0:
+            vy2 += 0.0005
         vx2 *= yoko2
         vy2 *= tate2
 
