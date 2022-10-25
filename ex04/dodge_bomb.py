@@ -2,6 +2,20 @@ import pygame as pg
 import sys
 from random import randint
 
+#練習7
+def check_bound(obj_rct, scr_rct):
+    """
+    obj_rct:こうかとんrct,または,爆弾
+    scr_rct:スクリーンrct
+    領域内:+1/領域外:-1
+    """
+    yoko, tate = +1, +1
+    if obj_rct.left < scr_rct.left or scr_rct.right < obj_rct.right:
+        yoko = -1
+    if obj_rct.top < scr_rct.top or scr_rct.bottom < obj_rct.bottom:
+        tate = -1
+    return yoko, tate
+
 def main():
     #練習1
     pg.display.set_caption("逃げろ！こうかとん")
@@ -19,7 +33,7 @@ def main():
     #練習5
     bomb_sfc = pg.Surface((20,20)) #空のSurface
     bomb_sfc.set_colorkey((0, 0, 0)) #爆弾の四隅の黒い部分を透過させる
-    pg.draw.circle(bomb_sfc, (255, 10, 0), (10, 10), 10 ) #円を描く
+    pg.draw.circle(bomb_sfc, (255, 40, 40), (10, 10), 10) #円を描く
     bomb_rct = bomb_sfc.get_rect()
     bomb_rct.centerx = randint(0, scrn_rct.width)
     bomb_rct.centery = randint(0, scrn_rct.height)
@@ -46,11 +60,30 @@ def main():
             tori_rct.centerx -= 1
         if key_states[pg.K_RIGHT]:
             tori_rct.centerx += 1
-        
+        yoko, tate = check_bound(tori_rct, scrn_rct)
+        if yoko == -1:
+            if key_states[pg.K_LEFT]:
+                tori_rct.centerx += 1
+            if key_states[pg.K_RIGHT]:
+                tori_rct.centerx -= 1
+        if tate == -1:
+            if key_states[pg.K_UP]:
+                tori_rct.centery += 1
+            if key_states[pg.K_DOWN]:
+                tori_rct.centery -= 1
+
         scrn_sfc.blit(tori_sfc, tori_rct) #練習3
 
+        #練習7
+        yoko, tate = check_bound(bomb_rct, scrn_rct)
+        vx *= yoko
+        vy *= tate
         bomb_rct.move_ip(vx, vy) #練習6 
         scrn_sfc.blit(bomb_sfc, bomb_rct) #練習5
+
+        #練習8
+        if tori_rct.colliderect(bomb_rct): #こうかとんrctが爆弾rctと重なったら
+            return
 
         pg.display.update()
         clock.tick(1000)
