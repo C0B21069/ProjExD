@@ -129,6 +129,10 @@ def main():
             end = time.time()
             tkm.showinfo("GAME OVER",f"{end - start_time:.3g}秒でGAME OVER")
             return
+        
+        if pg.time.get_ticks() >= 30000:
+            tkm.showinfo("GAME CLEAR","GAME CLEAR おめでとう！")
+            return
 
         pg.display.update()
         clock.tick(1000)
