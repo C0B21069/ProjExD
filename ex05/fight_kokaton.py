@@ -27,7 +27,8 @@ class MySprite(pg.sprite.Sprite): #画像アニメーション
         self.image = self.images[self.index]
         self.index += 1
 
-class MUsic: #音楽
+
+class Music: #音楽
     def music():
         pg.mixer.init(frequency = 44100)   
         pg.mixer.music.load("music.wav")     
@@ -149,10 +150,12 @@ def main():
             end = time.time()
             tkm.showinfo("GAME OVER",f"{end - start_time:.3g}秒でGAVE OVER") # こうかとんrctが爆弾rctと重なったら
             return
+
         if kkt.rct.colliderect(bkd2.rct):
             end = time.time()
             tkm.showinfo("GAME OVER",f"{end - start_time:.3g}秒でGAVE OVER") # こうかとんrctが爆弾rctと重なったら
             return
+
         if pg.time.get_ticks() >= 30000: #30秒逃げ切った場合にメッセージ表示
             tkm.showinfo("GAME CLEAR","GAME CLEAR おめでとう！")
             return
@@ -163,7 +166,7 @@ def main():
 
 if __name__ == "__main__":
     pg.init() # 初期化
-    MUsic() #音楽再生
+    Music() #音楽再生
     main()    # ゲームの本体
     pg.quit() # 初期化の解除
     sys.exit()
