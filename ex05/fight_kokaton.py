@@ -5,7 +5,10 @@ import time
 import tkinter as tk
 import tkinter.messagebox as tkm
 
-class MySprite(pg.sprite.Sprite):
+
+MAX_SHOTS = 100 #こうかとんが撃てる弾の最大数
+SCORE = 0 #スコアの表示
+class MySprite(pg.sprite.Sprite): #画像アニメーション
     def __init__(self):
         super(MySprite, self).__init__()
         self.images = list()
@@ -22,7 +25,7 @@ class MySprite(pg.sprite.Sprite):
         self.image = self.images[self.index]
         self.index += 1
 
-class MUsic:
+class MUsic: #音楽
     def music():
         pg.mixer.init(frequency = 44100)   
         pg.mixer.music.load("music.wav")     
@@ -34,7 +37,7 @@ class MUsic:
         return 0
 
 
-class Screen:
+class Screen: #画面生成
     def __init__(self, title, wh, bgimg):
         pg.display.set_caption(title) #逃げろ！こうかとん
         self.sfc = pg.display.set_mode(wh) #(1600, 900)
@@ -46,7 +49,7 @@ class Screen:
         self.sfc.blit(self.bgi_sfc, self.bgi_rct)
 
 
-class Bird:
+class Bird: #こうかとん生成
     key_delta = {
         pg.K_UP:    [0, -1],
         pg.K_DOWN:  [0, +1],
@@ -75,7 +78,7 @@ class Bird:
         self.blit(scr) # =scr.sfc.blit(self.sfc, self.rct)
 
 
-class Bomb:
+class Bomb: #爆弾生成
     def __init__(self, color, radius, vxy, scr:Screen):
         self.sfc = pg.Surface((radius*2, radius*2)) # 空のSurface
         self.sfc.set_colorkey((0, 0, 0)) # 四隅の黒い部分を透過させる
@@ -148,7 +151,7 @@ def main():
             end = time.time()
             tkm.showinfo("GAME OVER",f"{end - start_time:.3g}秒でGAVE OVER") # こうかとんrctが爆弾rctと重なったら
             return
-        if pg.time.get_ticks() >= 30000:
+        if pg.time.get_ticks() >= 30000: #30秒逃げ切った場合にメッセージ表示
             tkm.showinfo("GAME CLEAR","GAME CLEAR おめでとう！")
             return
 
@@ -158,7 +161,7 @@ def main():
 
 if __name__ == "__main__":
     pg.init() # 初期化
-    MUsic()
+    MUsic() #音楽再生
     main()    # ゲームの本体
     pg.quit() # 初期化の解除
     sys.exit()
