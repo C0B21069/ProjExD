@@ -7,7 +7,7 @@ import tkinter.messagebox as tkm
 
 
 MAX_SHOTS = 100 #こうかとんが撃てる弾の最大数
-SCORE = 0 #スコアの表示
+SCORE = 0 #こうかとんスコアの表示
 
 
 class MySprite(pg.sprite.Sprite): #画像アニメーション
