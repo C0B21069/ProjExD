@@ -5,12 +5,19 @@ import tkinter as tk
 import tkinter.messagebox as tkm
 
 
+#ゲームクリア時に表示する
+class Crea:
+    def draw_text(self, text, size, x, y, color):
+            font = pg.font.Font(None, size)
+            text_surface = font.render(text, True, color)
+            text_rect = text_surface.get_rect()
+            text_rect.midtop = (x, y)
+            self.screen.blit(text_surface,text_rect)
+
+
 #キャラクターの動作の初期値の設定
-class Player():
+class Player:
 	def __init__(self, x, y):
-		# self.image = pg.Surface((800,480))
-		# self.rect = self.image.get_rect()
-		# self.radius = int(tile_size / 2)
 		self.rect.x = x
 		self.rect.y = y
 		self.width = self.image.get_width()
@@ -20,6 +27,47 @@ class Player():
 		self.on_ground = True
 		self.in_the_air = False
 		self.dead = False
+
+
+#移動に関する関数
+def update(self,screen,data):
+    dx = 0
+    dy = 0							
+    key = pg.key.get_pressed()
+    if key[pg.K_SPACE] and self.jumped == False and self.on_ground == True and self.in_the_air == False:
+        self.jumped = True
+        self.vel_y = -15
+        self.on_ground = False
+    if key[pg.K_SPACE] == False:
+        self.jumped = False
+    if key[pg.K_LEFT]:
+        dx -= 5
+    if key[pg.K_RIGHT]:
+        dx += 5
+    self.vel_y += 1
+    if self.vel_y > 10:
+        self.vel_y = 10
+    dy += self.vel_y
+    if self.vel_y != 0:
+        self.in_the_air = True
+    for tile in data:
+        if tile[1].colliderect(self.rect.x + dx, self.rect.y, self.width, self.height):
+            dx = 0
+        if tile[1].colliderect(self.rect.x, self.rect.y + dy, self.width, self.height):
+            if self.vel_y < 0:
+                dy = tile[1].bottom - self.rect.top
+                self.vel_y = 0
+            elif self.vel_y >= 0:
+                dy = tile[1].top - self.rect.bottom
+                self.vel_y = 0
+                self.on_ground = True
+                self.in_the_air = False		
+    self.rect.x += dx
+    self.rect.y += dy
+    if self.rect.top >= 480:
+        self.dead = True
+    pg.draw.circle(screen, (0, 200, 50), self.rect.center,self.radius)
+
 
 def main():
     #画面の表示
